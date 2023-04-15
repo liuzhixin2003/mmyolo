@@ -14,8 +14,9 @@ anchors = [
 max_epochs = 40
 train_batch_size_per_gpu = 12
 train_num_workers = 4
+base_lr = _base_.base_lr * train_batch_size_per_gpu / 16
 
-load_from = 'https://download.openmmlab.com/mmyolo/v0/yolov5/yolov5_s-v61_syncbn_fast_8xb16-300e_coco/yolov5_s-v61_syncbn_fast_8xb16-300e_coco_20220918_084700-86e02187.pth'  # noqa
+load_from = './work_dirs/yolov5_s-v61_syncbn_fast_8xb16-300e_coco_20220918_084700-86e02187.pth'  # noqa
 
 model = dict(
     backbone=dict(frozen_stages=4),
@@ -52,6 +53,6 @@ default_hooks = dict(
     # The default value is 1000 which is not suitable for cat datasets.
     param_scheduler=dict(max_epochs=max_epochs, warmup_mim_iter=10),
     logger=dict(type='LoggerHook', interval=5))
-train_cfg = dict(max_epochs=max_epochs, val_interval=10)
+train_cfg = dict(max_epochs=max_epochs, val_begin=20, val_interval=10)
 # visualizer = dict(vis_backends = [dict(type='LocalVisBackend'), dict(type='WandbVisBackend')]) # noqa
 visualizer = dict(vis_backends=[dict(type='LocalVisBackend'), dict(type='TensorboardVisBackend')])
