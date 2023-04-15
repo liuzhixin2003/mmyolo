@@ -53,4 +53,4 @@ default_hooks = dict(
     logger=dict(type='LoggerHook', interval=5))
 train_cfg = dict(max_epochs=max_epochs, val_begin=20, val_interval=10)
 # visualizer = dict(vis_backends = [dict(type='LocalVisBackend'), dict(type='WandbVisBackend')]) # noqa
-visualizer = dict(vis_backends=[dict(type='LocalVisBackend'), dict(type='TensorboardVisBackend')])
+visualizer = dict(vis_backends=[dict(type='LocalVisBackend'), dict(type='WandbVisBackend')])
