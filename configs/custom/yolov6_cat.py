@@ -9,12 +9,12 @@ anchors = [[(72, 66), (134, 98), (117, 165)],
            [(241, 114), (214, 205), (191, 325)], 
            [(346, 341), (404, 210), (505, 371)]]
 
-max_epochs = 40
+max_epochs = 96
 train_batch_size_per_gpu = 12
 train_num_workers = 4
-base_lr = _base_.base_lr * train_batch_size_per_gpu / 16
+base_lr = _base_.base_lr * train_batch_size_per_gpu / 32
 
-load_from = './work_dirs/yolov6_s_syncbn_fast_8xb32-400e_coco_20221102_203035-932e1d91.pth'  # noqa
+load_from = './work_dirs/yolov6_cat/best_coco_bbox_mAP_epoch_90.pth'  # noqa
 
 model = dict(
     backbone=dict(frozen_stages=4),
@@ -71,5 +71,5 @@ custom_hooks = [
 ]
 
 train_cfg = dict(max_epochs=max_epochs, val_begin=20, val_interval=10)
-
-visualizer = dict(vis_backends=[dict(type='LocalVisBackend'), dict(type='WandbVisBackend')])
+env_cfg = dict(cudnn_benchmark=True)
+#visualizer = dict(vis_backends=[dict(type='LocalVisBackend'), dict(type='WandbVisBackend')])
